@@ -1,0 +1,345 @@
+﻿<Window x:Name="FrankHogan_WarrantySystem" x:Class="FrankHogan_WarrantySystem.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FrankHogan_WarrantySystem"
+        xmlns:oxy="http://oxyplot.org/wpf"
+        mc:Ignorable="d"
+        Title="Frank Hogan Ltd  // Warranty System" Height="750" Width="1360"
+        ResizeMode="CanMinimize"  
+        WindowStartupLocation="CenterScreen" WindowState="Maximized" Loaded="FrankHogan_WarrantySystem_Loaded">
+
+
+    <TabControl TabStripPlacement="Top">
+        <TabItem Name="Tab1" Header="Warranty Report">
+            <Grid Margin="0,0,0,0" Name="HomeTab">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Border BorderBrush="Black" BorderThickness="2" Grid.Row="0">
+                    <Grid Margin="-2,0,2,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Label x:Name="lblStartDateT1" Content="Start date:" HorizontalAlignment="Left" Margin="51,126,0,0" VerticalAlignment="Top" FontSize="13.333" FontWeight="Bold" Grid.Column="3"/>
+                        <DatePicker x:Name="dpStartDateT1" HorizontalAlignment="Left" Margin="196,128,0,0" VerticalAlignment="Top" Grid.Column="3"/>
+                        <Label x:Name="lblEndDateT1" Content="End date:" HorizontalAlignment="Left" Margin="51,159,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.513,-0.558" FontSize="13.333" FontWeight="Bold" Grid.Column="3"/>
+                        <DatePicker x:Name="dpEndDateT1" HorizontalAlignment="Left" Margin="196,163,0,0" VerticalAlignment="Top" Grid.Column="3"/>
+
+                        <oxy:PlotView x:Name="Num_Claims"  Model="{Binding Model}" Grid.ColumnSpan="1" Grid.Column="0" Margin="10,0,0,0">
+                            <oxy:PlotView.DataContext>
+                                <local:BarChart_NumberOfClaims/>
+                            </oxy:PlotView.DataContext>
+                        </oxy:PlotView>
+
+                        <oxy:PlotView x:Name="Claimed_Value" Model="{Binding Model}" Grid.ColumnSpan="1" Grid.Column="1" Margin="0,0,0,10" >
+                            <oxy:PlotView.DataContext>
+                                <local:PieChart_ClaimedValue/>
+                            </oxy:PlotView.DataContext>
+                        </oxy:PlotView>
+
+                        <oxy:PlotView x:Name="LabourClaimed"  Model="{Binding Model}" Grid.ColumnSpan="1" Grid.Column="2" Margin="0,0,0,10">
+                            <oxy:PlotView.DataContext>
+                                <local:BarChart_LabourClaimed/>
+                            </oxy:PlotView.DataContext>
+                        </oxy:PlotView>
+                        <Button x:Name="btnUpdateCharts" Content="Update charts" Grid.Column="3" Margin="120,197,120,10" FontSize="14" FontWeight="Bold" Click="btnUpdateCharts_Click"/>
+                        <Image x:Name="imgVWLogo" Grid.Column="3" HorizontalAlignment="Left" Height="100" Margin="226,10,0,0" VerticalAlignment="Top" Width="100" Source="Volkswagen.png"/>
+                        <Image x:Name="imgSkodaLogo" Grid.Column="3" HorizontalAlignment="Left" Height="100" Margin="116,10,0,0" VerticalAlignment="Top" Width="100" Source="Skoda.png"/>
+                    </Grid>
+                </Border>
+                <Border BorderBrush="Black" BorderThickness="2" Grid.Row="1">
+                    <Grid>
+                        <oxy:PlotView x:Name="ClaimsValuesWeek" Model="{Binding Model}" Grid.ColumnSpan="1">
+                            <oxy:PlotView.DataContext>
+                                <local:LineChart_WeeklyClaiming/>
+                            </oxy:PlotView.DataContext>
+                        </oxy:PlotView>
+
+                    </Grid>
+                </Border>
+                <Border BorderBrush="Black" BorderThickness="2" Grid.Row="2">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition>
+                            </ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0">
+                            <oxy:PlotView x:Name="SpeedKPIChart"  Model="{Binding Model}" >
+                                <oxy:PlotView.DataContext>
+                                    <local:LinearChart_SpeedKpi/>
+                                </oxy:PlotView.DataContext>
+                            </oxy:PlotView>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <oxy:PlotView x:Name="MakeDistribution" Model="{Binding Model}"  Grid.ColumnSpan="1" Grid.Column="0" Margin="0">
+                                <oxy:PlotView.DataContext>
+                                    <local:PieChart_MakeDistribution/>
+                                </oxy:PlotView.DataContext>
+                            </oxy:PlotView>
+
+                            <oxy:PlotView x:Name="TypeDistribution"  Model="{Binding Model }" Margin="10,0" Grid.ColumnSpan="1" Grid.Column="1">
+                                <oxy:PlotView.DataContext>
+                                    <local:PieChart_TypeDistribution/>
+                                </oxy:PlotView.DataContext>
+                            </oxy:PlotView>
+                        </Grid>
+                    </Grid>
+                </Border>
+
+            </Grid>
+
+        </TabItem>
+
+        <TabItem Name="Tab2" Header="Claim form">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="1.5*"></RowDefinition>
+                    <RowDefinition Height="2*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Border BorderBrush="Black" BorderThickness="2" Grid.Row="0">
+                    <Grid Name="Heading">
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Label x:Name="lblClaimForm" Content="Claim recording form" Margin="20,19,617,25" FontSize="48" FontWeight="Bold" />
+                        <Image x:Name="imgLogoTab2" Source="Volkswagen.png" Width="100" Height="100" Margin="1244,12,0,10" RenderTransformOrigin="2.817,0.5"/>
+                    </Grid>
+                </Border>
+                <Border BorderBrush="Black" BorderThickness="2" Grid.Row="1">
+                    <Grid Name="ClaimData">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Label x:Name="lbl1_Claim" FontSize="24" FontWeight="Bold" Grid.Column="0" Content="1.- Claim" Margin="0,0,222,81"/>
+                        <Label x:Name="lblClaimNo" FontSize="18.667" Grid.Column="0" Content="Claim No.:"  Margin="12,36,229,52"/>
+                        <Label x:Name="lblClaimType" Content="Claim type:" Margin="12,74,222,10" FontSize="18.667" Grid.Column="0"/>
+                        <TextBox x:Name="tbxClaimNo1" HorizontalAlignment="Left" Height="30" Margin="130,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80" Grid.Column="0" FontSize="18.667"/>
+                        <TextBox x:Name="tbxClaimNo2" HorizontalAlignment="Left" Height="30" Margin="230,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="30" Grid.Column="0" FontSize="18.667"/>
+                        <ComboBox x:Name="cbxClaimType" HorizontalAlignment="Left" Margin="130,85,0,0" VerticalAlignment="Top" Width="206" FontSize="16" Grid.Column="0"/>
+
+                        <Label x:Name="lblClaimDate" Content="Claim date:" Grid.Column="1" HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top" FontSize="18.667" Height="34"/>
+                        <Label x:Name="lblStatus" Content="Status:" Grid.Column="1" HorizontalAlignment="Left" Margin="47,78,0,10" FontSize="18.667"/>
+                        <DatePicker x:Name="dpClaimDate" Grid.Column="1" HorizontalAlignment="Left" Margin="151,30,0,0" VerticalAlignment="Top" FontSize="18.667" Width="150" Height="34"/>
+                        <ComboBox x:Name="cbxStatus" Grid.Column="1" HorizontalAlignment="Left" Margin="151,85,0,0" VerticalAlignment="Top" FontSize="16" Width="185"/>
+                        <Label x:Name="lblTimeAllowed" Content="Time allowed:" Grid.Column="2" HorizontalAlignment="Left" Margin="48,30,0,0" VerticalAlignment="Top" FontSize="18.667"/>
+                        <Label x:Name="lblClaimValue" Content="Claim value:" Grid.Column="2" HorizontalAlignment="Left" Margin="62,70,0,0" VerticalAlignment="Top" FontSize="18.667"/>
+                        <TextBox x:Name="tbxTimeAllowed" Grid.Column="2" HorizontalAlignment="Left" Height="33" Margin="213,30,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" FontSize="18.667"/>
+                        <TextBox x:Name="tbxClaimValue" Grid.Column="2" HorizontalAlignment="Left" Height="32" Margin="213,74,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" FontSize="18.667"/>
+
+                        <Label x:Name="lblPaymentDate" Content="Payment day:" Grid.Column="3" HorizontalAlignment="Left" Margin="22,28,0,0" VerticalAlignment="Top" FontSize="18.667" Height="35"/>
+                        <Label x:Name="lblManuCode" Content="Manufacturer code:" Grid.Column="3" HorizontalAlignment="Left" Margin="22,65,0,0" VerticalAlignment="Top" FontSize="18.667"/>
+                        <DatePicker x:Name="dpPaymentDate" Grid.Column="3" HorizontalAlignment="Left" Margin="170,28,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.125,-0.333" FontSize="18.667" Width="150" Height="35"/>
+                        <TextBox x:Name="tbxManuCode" Grid.Column="3" Height="30" Margin="240,70,16,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="18.667" Width="80"/>
+                    </Grid>
+                </Border>
+
+                <Border BorderBrush="Black" BorderThickness="0.1" Grid.Row="2">
+                    <Grid Name="CarAndFaultData">
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Border BorderBrush="Black" BorderThickness="2" Grid.Column="0">
+                            <Grid>
+                                <Label x:Name="lbl2_Car" Content="2.-Car" FontSize="24" FontWeight="Bold" Margin="8,8,556,137" Grid.Column="0"/>
+                                <Label x:Name="lblVIN" Content="VIN:" HorizontalAlignment="Left" Margin="100,15,0,0" VerticalAlignment="Top" FontSize="18.667"/>
+                                <Label x:Name="lblRegNumber" Content="Registration number:" HorizontalAlignment="Left" Margin="100,60,0,0" VerticalAlignment="Top" FontSize="18.667"/>
+                                <Label x:Name="lblMake" Content="Make:" HorizontalAlignment="Left" Margin="100,100,0,0" VerticalAlignment="Top" FontSize="18.667"/>
+                                <Label x:Name="lblMileage" Content="Mileage:" HorizontalAlignment="Left" Margin="100,138,0,0" VerticalAlignment="Top" FontSize="18.667"/>
+                                <TextBox x:Name="tbxVIN" HorizontalAlignment="Left" Height="35" Margin="203,15,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="310" FontSize="18.667"/>
+                                <TextBox x:Name="tbxRegNumber" HorizontalAlignment="Left" Height="35" Margin="313,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" FontSize="18.667"/>
+                                <ComboBox x:Name="cbxMake" HorizontalAlignment="Left" Margin="313,104,0,0" VerticalAlignment="Top" Width="200" FontSize="16" SelectionChanged="cbxMake_SelectionChanged"/>
+                                <TextBox x:Name="tbxMileage" HorizontalAlignment="Left" Height="35" Margin="313,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontSize="18.667"/>
+                                <ComboBox x:Name="cbxMileage" HorizontalAlignment="Left" Margin="485,142,0,0" VerticalAlignment="Top" FontSize="18.667" Height="35"/>
+                                <Button x:Name="btnFindCar" Content="Find car" HorizontalAlignment="Left" Margin="551,60,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Width="80" Height="35" Click="btnFindCar_Click"/>
+                            </Grid>
+                        </Border>
+
+                        <Border BorderBrush="Black" BorderThickness="2" Grid.Column="1">
+                            <Grid>
+                                <Label x:Name="lbl3_Fault" Content="3.-Fault" FontSize="24" FontWeight="Bold" Margin="8,8,562,137"/>
+                                <Label x:Name="lblFaultDescription" Content="Fault description:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="18.667" Margin="115,14,0,0"/>
+                                <ComboBox x:Name="cbxFault" HorizontalAlignment="Left" Margin="280,14,0,0" VerticalAlignment="Top" Width="360" FontSize="16" Height="35"/>
+                                <Label x:Name="lblGroup" Content="Group affected:" HorizontalAlignment="Left" Margin="128,65,0,0" VerticalAlignment="Top" FontSize="18.667"/>
+                                <ComboBox x:Name="cbxGroup" HorizontalAlignment="Left" Margin="280,65,0,0" VerticalAlignment="Top" Width="360" FontSize="16" Height="35"/>
+                                <TextBox x:Name="tbxNewFault" HorizontalAlignment="Left" Height="60" TextWrapping="Wrap" VerticalAlignment="Top" Width="360" Margin="280,115,0,0" FontSize="13.333" IsEnabled="False"/>
+                                <CheckBox x:Name="chbxNewFault" Content="New Fault:" HorizontalAlignment="Left" Margin="147,115,0,0" VerticalAlignment="Top" FontSize="18.667" RenderTransformOrigin="0.028,-0.75" Checked="chbxNewFault_Checked" Unchecked="chbxNewFault_Unchecked"/>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </Border>
+                <Border BorderBrush="Black" BorderThickness="0.1" Grid.Row="3">
+                    <Grid Name="RepairDataAndComment">
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Border BorderBrush="Black" BorderThickness="2" Grid.Column="0">
+                            <Grid>
+                                <Label x:Name="lbl4_Repair" Content="4.-Repair" HorizontalAlignment="Left" Margin="8,8,0,0" VerticalAlignment="Top" FontSize="24" FontWeight="Bold" Height="40" Width="111"/>
+                                <Label x:Name="lblReceptionDate" Content="Reception date:" HorizontalAlignment="Left" Margin="327,10,0,0" VerticalAlignment="Top" FontSize="18.667"/>
+                                <Label x:Name="lblRepairDate" Content="Repair date:" HorizontalAlignment="Left" Margin="542,10,0,0" VerticalAlignment="Top" FontSize="18.667"/>
+                                <Label x:Name="lblTimeTaken" Content="Time taken:" HorizontalAlignment="Left" Margin="100,88,0,0" VerticalAlignment="Top" FontSize="18.667"/>
+                                <Label x:Name="lblInvoice" Content="Invoice:" HorizontalAlignment="Left" Margin="402,90,0,0" VerticalAlignment="Top" FontSize="18.667"/>
+                                <Label x:Name="lblSolution" Content="Solution applied:" HorizontalAlignment="Left" Margin="100,130,0,0" VerticalAlignment="Top" FontSize="18.667"/>
+                                <DatePicker x:Name="dpReceptionDate" HorizontalAlignment="Left" Margin="315,45,0,0" VerticalAlignment="Top" FontSize="18.667" Width="150" Height="35"/>
+                                <DatePicker x:Name="dpRepairDate" HorizontalAlignment="Left" Margin="500,45,0,0" VerticalAlignment="Top" FontSize="18.667" Width="150" Height="35"/>
+                                <TextBox x:Name="tbxTimeTaken" HorizontalAlignment="Left" Height="35" Margin="232,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="51" FontSize="18.667" SpellCheck.IsEnabled="True"/>
+                                <TextBox x:Name="tbxInvoice" HorizontalAlignment="Left" Height="35" Margin="500,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" FontSize="18.667"/>
+                                <ComboBox x:Name="cbxSolution" HorizontalAlignment="Left" Margin="283,134,0,0" VerticalAlignment="Top" Width="367" FontSize="16"/>
+                                <TextBox x:Name="tbxNewSolution" HorizontalAlignment="Left" Height="60" Margin="283,178,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="367" FontSize="13.333" IsEnabled="False"/>
+                                <CheckBox x:Name="chbxNewSolution" Content="New Solution:" HorizontalAlignment="Left" Margin="110,178,0,0" VerticalAlignment="Top" FontSize="18.667" Checked="chbxNewSolution_Checked" Unchecked="chbxNewSolution_Unchecked"/>
+                                <Label x:Name="lblRepairOrder" Content="Repair order:" HorizontalAlignment="Left" Margin="8,47,0,0" VerticalAlignment="Top" FontSize="18.667"/>
+                                <TextBox x:Name="tbxRepairOrder" HorizontalAlignment="Left" Height="35" Margin="163,48,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontSize="18.667"/>
+                            </Grid>
+                        </Border>
+                        <Border BorderBrush="Black" BorderThickness="2" Grid.Column="1">
+                            <Grid>
+                                <Label x:Name="lbl5_Comments" Content="5.- Special notes and comments" HorizontalAlignment="Left" Margin="4,0,0,0" VerticalAlignment="Top" FontSize="24" FontWeight="Bold"/>
+                                <TextBox x:Name="tbxComments" Height="110" Margin="12,47,10,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16"/>
+                                <Button x:Name="btnNewClaim" Content="Register new claim" Margin="10,205,461,0" VerticalAlignment="Top" FontSize="18.667" FontWeight="Bold" Click="btnNewClaim_Click"/>
+                                <Button x:Name="btnSearchClaim" Content="Search claim" HorizontalAlignment="Left" Margin="246,205,0,0" VerticalAlignment="Top" FontSize="18.667" FontWeight="Bold" Click="btnSearchClaim_Click"/>
+                                <Button x:Name="btnUpdateClaim" Content="Update claim" HorizontalAlignment="Left" Margin="400,205,0,14" FontSize="18.667" FontWeight="Bold" IsEnabled="False" Click="btnUpdateClaim_Click"/>
+                                <Button x:Name="btnDeleteClaim" Content="Delete claim" HorizontalAlignment="Left" Margin="549,205,0,0" VerticalAlignment="Top" FontSize="18.667" FontWeight="Bold" IsEnabled="False" Click="btnDeleteClaim_Click"/>
+                                <Button x:Name="btnClearForm" Content="Clear form" HorizontalAlignment="Left" Margin="549,167,0,0" VerticalAlignment="Top" FontSize="18.667" FontWeight="Bold" IsEnabled="False" Width="111" Click="btnClearForm_Click"/>
+                                <Button x:Name="btnLoad" Content="Load data" HorizontalAlignment="Left" Margin="10,167,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="18.667" Click="btnLoad_Click"/>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </Border>
+            </Grid>
+        </TabItem>
+
+        <TabItem Name="Tab3" Header="Miscelaneous and extra reports">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="4*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Border BorderBrush="Black" BorderThickness="2" Grid.Row="0">
+                    <Grid Name="HeadingTab3">
+                        <Label x:Name="lblMiscellaneous" Content="Miscellaneous and extra reports" HorizontalAlignment="Left" Margin="20,19,0,19" FontSize="48" FontWeight="Bold"/>
+                        <Image x:Name="imgLogoTab3" HorizontalAlignment="Left" Height="100" Margin="1244,2,0,0" VerticalAlignment="Top" Width="100" Source="Skoda.png"/>
+                    </Grid>
+                </Border>
+
+
+
+                <Border BorderBrush="Black" BorderThickness="0.1" Grid.Row="2">
+                    <Grid Name="FiltersAndCalculations">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Border BorderBrush="Black" BorderThickness="2" Grid.Column="0">
+                            <Grid Margin="0,-1,0,1">
+                                <Label x:Name="lbl2aClaimsFilter" Content="1a.-Claims filtering" FontSize="18.667" FontWeight="Bold" Margin="8,3,422,514"/>
+                                <Label x:Name="lblStartDateT3" Content="Start date:" HorizontalAlignment="Left" Margin="23,64,0,0" VerticalAlignment="Top" FontSize="16"/>
+                                <DatePicker x:Name="dpStartDateT3" HorizontalAlignment="Left" Margin="165,68,0,0" VerticalAlignment="Top" FontSize="16"/>
+                                <Label x:Name="lblEndDateT3" Content="End date:" HorizontalAlignment="Left" Margin="379,64,0,0" VerticalAlignment="Top" FontSize="16"/>
+                                <DatePicker x:Name="dpEndDateT3" HorizontalAlignment="Left" Margin="519,68,0,0" VerticalAlignment="Top" FontSize="16"/>
+                                <Label x:Name="lblFilterInstructions" Content="Filtering options(tick off one or more filtering criteria)" HorizontalAlignment="Left" Margin="8,111,0,0" VerticalAlignment="Top" FontSize="16"/>
+                                <CheckBox x:Name="chbxMakeT3" Content="Make" HorizontalAlignment="Left" Margin="8,171,0,0" VerticalAlignment="Top" FontSize="13.333" Checked="chbxMakeT3_Checked" Unchecked="chbxMakeT3_Unchecked"/>
+                                <ComboBox x:Name="cbxMakeT3" HorizontalAlignment="Left" Margin="75,166,0,0" VerticalAlignment="Top" Width="230" FontSize="16" IsEnabled="False" SelectionChanged="cbxMakeT3_SelectionChanged"/>
+                                <CheckBox x:Name="chbxStatusT3" Content="Status" HorizontalAlignment="Left" Margin="362,171,0,0" VerticalAlignment="Top" FontSize="13.333" Checked="chbxStatus_Checked" Unchecked="chbxStatus_Unchecked"/>
+                                <ComboBox x:Name="cbxStatusT3" HorizontalAlignment="Left" Margin="431,166,0,0" VerticalAlignment="Top" Width="230" FontSize="16" IsEnabled="False"/>
+                                <CheckBox x:Name="chbxClaimTypeT3" Content="Claim type" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="8,227,0,0" FontSize="13.333" Checked="chbxClaimTypeT3_Checked" Unchecked="chbxClaimTypeT3_Unchecked"/>
+                                <ComboBox x:Name="cbxClaimTypeT3" HorizontalAlignment="Left" Margin="105,223,0,0" VerticalAlignment="Top" Width="200" FontSize="16" IsEnabled="False"/>
+                                <CheckBox x:Name="chbxFaultT3" Content="Fault" HorizontalAlignment="Left" Margin="362,228,0,0" VerticalAlignment="Top" FontSize="13.333" RenderTransformOrigin="0.898,0.912" Checked="chbxFault_Checked" Unchecked="chbxFault_Unchecked"/>
+                                <CheckBox x:Name="chbxGroupT3" Content="Group" HorizontalAlignment="Left" Margin="8,301,0,0" VerticalAlignment="Top" FontSize="13.333" Checked="chbxGroupT3_Checked" Unchecked="chbxGroupT3_Unchecked"/>
+                                <ComboBox x:Name="cbxGroupT3" HorizontalAlignment="Left" Margin="75,297,0,0" VerticalAlignment="Top" Width="230" FontSize="16" RenderTransformOrigin="0.133,0.593" IsEnabled="False"/>
+                                <CheckBox x:Name="chbxValueT3" Content="Value" HorizontalAlignment="Left" Margin="362,301,0,0" VerticalAlignment="Top" FontSize="13.333" Checked="chbxValueT3_Checked" Unchecked="chbxValueT3_Unchecked"/>
+                                <Label x:Name="lblMinValueT3" Content="Minimum value:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="431,282,0,0" FontSize="13.333"/>
+                                <TextBox x:Name="tbxMinValueT3" HorizontalAlignment="Left" Height="25" Margin="563,282,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="16" IsEnabled="False"/>
+                                <Label x:Name="lblMaxValueT3" Content="Maximum value:" HorizontalAlignment="Left" Margin="431,307,0,0" VerticalAlignment="Top" FontSize="13.333"/>
+                                <TextBox x:Name="tbxMaxValueT3" HorizontalAlignment="Left" Height="25" Margin="563,311,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="16" IsEnabled="False"/>
+                                <Label x:Name="lbl2bClaimsPerCar" Content="1b.-Claims listing per car" HorizontalAlignment="Left" Margin="8,387,0,0" VerticalAlignment="Top" FontSize="18.667" FontWeight="Bold"/>
+                                <RadioButton x:Name="rdbtnVINT3" Content="VIN" HorizontalAlignment="Left" Margin="8,450,0,0" VerticalAlignment="Top" FontSize="13.333" Checked="rdbtnVINT3_Checked"/>
+                                <TextBox x:Name="tbxVINFilterT3" HorizontalAlignment="Left" Height="23" Margin="105,447,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" FontSize="16" IsEnabled="False"/>
+                                <RadioButton x:Name="rdbtnRegNumberT3" Content="Registration number" HorizontalAlignment="Left" Margin="8,504,0,0" VerticalAlignment="Top" FontSize="13.333" Checked="rdbtnRegNumberT3_Checked"/>
+                                <TextBox x:Name="tbxRegNumberFilterT3" HorizontalAlignment="Left" Height="23" Margin="235,500,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontSize="16" IsEnabled="False"/>
+                                <Button x:Name="btnClaimListByCarT3" Content="List Claims" HorizontalAlignment="Left" Margin="488,499,0,0" VerticalAlignment="Top" Width="155" FontSize="16" FontWeight="Bold" Click="btnClaimListByCarT3_Click"/>
+                                <Button x:Name="btnClaimsFilterT3" Content="Filter claims" Margin="488,360,27,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Click="btnClaimsFilterT3_Click"/>
+                                <TextBox x:Name="tbxFaultT3" HorizontalAlignment="Left" Height="23" Margin="431,222,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="229" IsEnabled="False"/>
+                            </Grid>
+
+                        </Border>
+
+                        <Border BorderBrush="Black" BorderThickness="2" Grid.Column="1">
+                            <Grid>
+                                <Label x:Name="lbl3_OthersT3" Content="2.- Other reports and calculations" FontSize="18.667" FontWeight="Bold" Margin="8,3,349,516"/>
+                                <Label x:Name="lblStartDateOthersT3" Content="Start date:" HorizontalAlignment="Left" Margin="8,63,0,0" VerticalAlignment="Top" FontSize="16"/>
+                                <DatePicker x:Name="dpStartDateOthersT3" HorizontalAlignment="Left" Margin="152,63,0,0" VerticalAlignment="Top" FontSize="16"/>
+                                <Label x:Name="lblEndDateOthersT3" Content="End date:" HorizontalAlignment="Left" Margin="378,63,0,0" VerticalAlignment="Top" FontSize="16"/>
+                                <DatePicker x:Name="dpEndDateOthersT3" HorizontalAlignment="Left" Margin="522,63,0,0" VerticalAlignment="Top" FontSize="16"/>
+                                <Label x:Name="lblFilteringInstructionsOthers" Content="Filtering options(tick off one or more filtering criteria)" HorizontalAlignment="Left" Margin="6,119,0,0" VerticalAlignment="Top" FontSize="16"/>
+                                <CheckBox x:Name="chbxMakeOthersT3" Content="Make" HorizontalAlignment="Left" Margin="6,183,0,0" VerticalAlignment="Top" FontSize="13.333" Checked="chbxMakeOthersT3_Checked" Unchecked="chbxMakeOthersT3_Unchecked"/>
+                                <ComboBox x:Name="cbxMakeOthersT3" HorizontalAlignment="Left" Margin="71,183,0,0" VerticalAlignment="Top" Width="230" FontSize="16" IsEnabled="False" SelectionChanged="cbxMakeOthersT3_SelectionChanged"/>
+                                <CheckBox x:Name="chbxClaimTypeOthersT3" Content="Claim type" HorizontalAlignment="Left" Margin="332,183,0,0" VerticalAlignment="Top" FontSize="13.333" Checked="chbxClaimTypeOthersT3_Checked" Unchecked="chbxClaimTypeOthersT3_Unchecked"/>
+                                <ComboBox x:Name="cbxClaimTypeOthersT3" HorizontalAlignment="Left" Margin="430,183,0,0" VerticalAlignment="Top" Width="230" FontSize="16" IsEnabled="False"/>
+                                <Label x:Name="lbl3aWSPerformaceT3" Content="2a.- Workshop performace for warranty repairs:" HorizontalAlignment="Left" Margin="10,253,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
+                                <Label x:Name="lblPerformanceKPIValueT3" Content="" HorizontalAlignment="Left" Margin="406,254,0,0" VerticalAlignment="Top" FontSize="16" Width="70" Height="30"/>
+                                <Label x:Name="lbl3bAverageClaimingSpeedT3" Content="2b.- Average claiming speed:" HorizontalAlignment="Left" Margin="10,306,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
+                                <Label x:Name="lblSpeedKPIValueT3" Content="" HorizontalAlignment="Left" Margin="273,307,0,0" VerticalAlignment="Top" FontSize="16" Width="69" Height="30"/>
+                                <Label x:Name="lbl3cInvoiceRetriverT3" Content="2c.- Invoice number retriver:" HorizontalAlignment="Left" Margin="10,408,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
+                                <Label x:Name="lblClaimNoOthersT3" Content="Claim No.:" HorizontalAlignment="Left" Margin="10,450,0,0" VerticalAlignment="Top" FontSize="16"/>
+                                <TextBox x:Name="tbxClaimNo1OthersT3" HorizontalAlignment="Left" Height="24" Margin="128,456,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80" FontSize="16"/>
+                                <TextBox x:Name="tbxClaimNo2OthersT3" HorizontalAlignment="Left" Height="24" Margin="226,456,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="30" FontSize="16"/>
+                                <Label x:Name="lblVINOthersT3" Content="VIN:" HorizontalAlignment="Left" Margin="10,495,0,0" VerticalAlignment="Top" FontSize="16"/>
+                                <TextBox x:Name="tbxVINOthersT3" HorizontalAlignment="Left" Height="22" Margin="92,499,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" FontSize="16"/>
+                                <Button x:Name="btnSearchInvoice" Content="Search invoice" HorizontalAlignment="Left" VerticalAlignment="Top" Width="135" Margin="434,450,0,0" FontSize="16" FontWeight="Bold" Click="btnSearchInvoice_Click"/>
+                                <Label x:Name="lblInvoiceOthersT3" Content="Invoice:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="434,496,0,0" FontSize="16"/>
+                                <Label x:Name="lblInvoiceValueOthersT3" Content="" HorizontalAlignment="Left" Margin="522,495,0,0" VerticalAlignment="Top" Width="120" FontSize="16" FontWeight="Bold"/>
+                                <Button x:Name="btnCalculateKPIS" Content="Calculate KPIs" HorizontalAlignment="Left" Margin="271,365,0,0" VerticalAlignment="Top" Width="183" FontSize="16" FontWeight="Bold" Click="btnCalculateKPIS_Click"/>
+
+                            </Grid>
+
+                        </Border>
+                    </Grid>
+                </Border>
+            </Grid>
+        </TabItem>
+    </TabControl>
+
+</Window>
