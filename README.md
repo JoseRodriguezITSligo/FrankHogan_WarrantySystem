@@ -6,8 +6,8 @@ To Design and implement a computer warranty system at the dealership level to he
 Code structure and description of each file:
 
 MainWindow.xmal : 
-                Markup file that defines user inter face layout
-                MainWindow is made of three tabs controlers.1st tab to display charts (plot view controls are placed here)
+                Markup file that defines user interface layout.
+                MainWindow is made of three tabs controlers:1st tab to display charts (plot view controls are placed here),
                 2nd tab is a claim form: Fields(texboxes and combo boxes) necessary for the insert, update, search and delere options are here.
                 3rd tab is for more search options and KPI calculations.
                 
@@ -18,20 +18,19 @@ DataClasses1.bdml:
                 Defines all LINQ to SQL classes.
                 
 xxxExtended.cs: 
-              Files that are named with final section Extended.cs are classes that extend classes genereted by LINQ to SQL. For example: ClaimExtended extends Claim class in DataClasses1.designer.cs, CarExtended extends Car class in DataClasses1.designer.cs,
-              same for FaultExtended, MakeExtended and so on.
+              Files that are named with final section Extended.cs are classes that extend classes genereted by LINQ to SQL. For example: ClaimExtended extends Claim class in DataClasses1.designer.cs, CarExtended extends Car class in DataClasses1.designer.cs, same for FaultExtended, MakeExtended and so on.
               
 LoadDataWindow.xmal:
-                  Defines UI design of child window for loading data from cvs file.
+              Defines UI design of child window for loading data from cvs file.
                   
 LoadDataWindow.xmal.cs:
-                  Defines event handlers for buttons in child windows LoadDataWindow.
+              Defines event handlers for buttons in child windows LoadDataWindow.
                   
 ClaimList.xmal:
               Defines UI for child window that displays a list of claims retrieved from database.
               
 ClaimsList.xmal.cs: 
-                Defines event handlers for ClaimList child windows.
+              Defines event handlers for ClaimList child windows.
                 
 ChartModel.cs:  
               Class that defines common properties and methods for all chat model classes to be used to create data for the different plots.
